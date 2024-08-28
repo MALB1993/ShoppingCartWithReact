@@ -1,5 +1,6 @@
-import { Button, Container, Nav, Navbar, NavDropdown, Form } from "react-bootstrap"; // اصلاح شده
-import { Link, NavLink } from "react-router-dom"; // برای لینک‌دهی
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+// import SearchProduct from "../../pages/products/SearchProduct";
 
 const Header = () => {
     return (
@@ -19,12 +20,10 @@ const Header = () => {
                             <NavDropdown.Item as={Link} to="/action5">Something else here</NavDropdown.Item>
                         </NavDropdown>
 
-                        
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
+                    
+                    {/* <SearchProduct /> */}
+
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -4,10 +4,11 @@ import { fetchProductsStart, fetchProductsSuccess, fetchProductsFailure } from '
 
 import Loading from '../../components/partials/Loading';
 import ProductList from '../../components/lists/products/ProductList';
+import SearchProduct from './SearchProduct'; // اضافه کردن کامپوننت جستجو
 
 const IndexProduct = () => {
     const dispatch = useDispatch();
-    const { products, status, error } = useSelector(state => state.products);
+    const { filteredProducts, status, error } = useSelector(state => state.products);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -15,25 +16,28 @@ const IndexProduct = () => {
             try {
                 const response = await fetch('https://dummyjson.com/products');
                 const data = await response.json();
-                dispatch(fetchProductsSuccess(data));
+                if (data && data.products) {
+                    dispatch(fetchProductsSuccess(data.products));
+                } else {
+                    throw new Error('Unexpected API response structure');
+                }
             } catch (err) {
                 dispatch(fetchProductsFailure(err.toString()));
             }
         };
-
+    
         fetchProducts();
     }, [dispatch]);
+    
 
-    switch (status) {
-        case 'loading':
-            return <Loading />
-        case 'failed':
-            return <p>{error}</p>
-        case 'succeeded':
-            return <ProductList products={products} />
-        default:
-            return <Loading />;
-    }
+    return (
+        <div>
+            <SearchProduct /> {/* نمایش کامپوننت جستجو */}
+            {status === 'loading' && <Loading />}
+            {status === 'failed' && <p>{error}</p>}
+            {status === 'succeeded' && <ProductList products={filteredProducts} />}
+        </div>
+    );
 };
 
 export default IndexProduct;
