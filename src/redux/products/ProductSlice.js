@@ -1,4 +1,3 @@
-// redux/products/ProductSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -15,7 +14,7 @@ const productSlice = createSlice({
             state.status = 'loading';
         },
         fetchProductsSuccess: (state, action) => {
-            state.products = action.payload.products; // Make sure data structure matches
+            state.products = action.payload.products;
             state.status = 'succeeded';
         },
         fetchProductsFailure: (state, action) => {
