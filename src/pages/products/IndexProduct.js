@@ -4,12 +4,13 @@ import { fetchProductsStart, fetchProductsSuccess, fetchProductsFailure } from '
 
 import Loading from '../../components/partials/Loading';
 import ProductList from '../../components/lists/products/ProductList';
-import SearchProduct from './SearchProduct'; // اضافه کردن کامپوننت جستجو
+import SearchProduct from './SearchProduct';
 
 const IndexProduct = () => {
     const dispatch = useDispatch();
     const { filteredProducts, status, error } = useSelector(state => state.products);
-
+    
+    
     useEffect(() => {
         const fetchProducts = async () => {
             dispatch(fetchProductsStart());
@@ -32,7 +33,7 @@ const IndexProduct = () => {
 
     return (
         <div>
-            <SearchProduct /> {/* نمایش کامپوننت جستجو */}
+            {/* <SearchProduct /> */}
             {status === 'loading' && <Loading />}
             {status === 'failed' && <p>{error}</p>}
             {status === 'succeeded' && <ProductList products={filteredProducts} />}
